@@ -5,11 +5,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class TreeMainFrame extends javax.swing.JFrame {
-    public ArrayList nodes;
-    Graphics g;;
+    
+    public static ArrayList<Node> nodes=new ArrayList<>();
+    Graphics g;
+    Node SelectedNode;
     
     public TreeMainFrame() {
         initComponents();
@@ -117,7 +118,7 @@ public class TreeMainFrame extends javax.swing.JFrame {
                         .addComponent(Dev))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(DrawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)))
+                        .addComponent(DrawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -130,32 +131,51 @@ public class TreeMainFrame extends javax.swing.JFrame {
 
 //обработчик нажатий на стрелки
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        // TODO add your handling code here:
-//        String key=KeyEvent.getKeyText(evt.getKeyCode());
-//        if(KeyEvent.getKeyText(evt.getKeyCode()).equals("Up")) 
-//        else if(KeyEvent.getKeyText(evt.getKeyCode()).equals("Left")) 
-//        else if(KeyEvent.getKeyText(evt.getKeyCode()).equals("Right")) 
-//        
+        String key=KeyEvent.getKeyText(evt.getKeyCode());
+        SelectedNode=nodes.get(0);
+        if(KeyEvent.getKeyText(evt.getKeyCode()).equals("Up")&&(SelectedNode.parent!=null))
+            SelectedNode=SelectedNode.parent;
+        else if(KeyEvent.getKeyText(evt.getKeyCode()).equals("Left")&&(SelectedNode.left!=null)) 
+            SelectedNode=SelectedNode.left;
+        else if(KeyEvent.getKeyText(evt.getKeyCode()).equals("Right")&&(SelectedNode.right!=null)) 
+            SelectedNode=SelectedNode.right;
+        DrawNode(Math.abs(DrawPanel.getWidth()/2-10),10,TreeMainFrame.nodes.get(0));
+        
     }//GEN-LAST:event_formKeyPressed
 
     private void NewNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewNodeActionPerformed
         // TODO add your handling code here:
-        setEnabled(false);
-        new AddNewNode().setVisible(true);
+       new AddNewNode().setMainFrame(TreeMainFrame.this);
+       setEnabled(false);
     }//GEN-LAST:event_NewNodeActionPerformed
 
     private void RemoveNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveNodeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_RemoveNodeActionPerformed
     
-    public void DrawSelNode(){
-        DrawPanel.getWidth();
-    }
-    
-    public void DrawAllNode(){
+    public void DrawNode(int x,int y,Node n){
+        g.setColor(Color.green);
+        if(n.equals(SelectedNode)) g.fillOval(x, y, 20, 20);
+        else  g.drawOval(x, y, 20, 20);
+        y+=30;x-=50;
         
+        Node l=n.getLeft();
+        if (l!=null)
+        DrawNode(x,y,n.getLeft());
+        
+        Node r=n.getRight();
+        x+=100;
+        if (r!=null)
+        DrawNode(x,y,n.getRight());
+                
     }
    
+    
+    
+    
+    
+    
+    
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -194,7 +214,7 @@ public class TreeMainFrame extends javax.swing.JFrame {
     private javax.swing.JButton AllValue;
     private javax.swing.JButton AllValueBalans;
     private javax.swing.JLabel Dev;
-    private javax.swing.JPanel DrawPanel;
+    public javax.swing.JPanel DrawPanel;
     private javax.swing.JButton NewNode;
     private javax.swing.JButton RemoveNode;
     private javax.swing.JButton SearchName;
