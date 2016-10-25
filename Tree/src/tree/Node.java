@@ -11,18 +11,25 @@ package tree;
  */
 public class Node {
     String name;
+    Node parent;
     Node left;
     Node right;
     int value;
 
-    Node(String name, int value) {
+    Node(String name,int value,Node parent) {
         this.name=name;
         this.value=value;
+        this.parent=parent;
+        
     }
     
     
     String getName(){
         return name;
+    }
+    
+    Node getParent(){
+        return parent;
     }
     
     Node getLeft(){
