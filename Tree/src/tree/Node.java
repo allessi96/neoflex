@@ -10,41 +10,41 @@ package tree;
  * @author User
  */
 public class Node {
+
     String name;
     Node parent;
     Node left;
     Node right;
     int value;
 
-    Node(String name,int value,Node parent) {
-        this.name=name;
-        this.value=value;
-        this.parent=parent;
-        
+    Node(String name, int value, Node parent) {
+        this.name = name;
+        this.value = value;
+        this.parent = parent;
+
     }
-    
-    
-    String getName(){
+
+    String getName() {
         return name;
     }
-    
-    Node getParent(){
+
+    Node getParent() {
         return parent;
     }
-    
-    Node getLeft(){
+
+    Node getLeft() {
         return left;
     }
-    
-    Node getRight(){
+
+    Node getRight() {
         return right;
     }
-    
-    void setLeft(Node left){
-        this.left=left;
+
+    void setLeft(Node left) {
+        this.left = left;
     }
-    
-    void setRight(Node right){
-        this.right=right;
+
+    void setRight(Node right) {
+        this.right = right;
     }
 }
