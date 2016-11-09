@@ -1,10 +1,9 @@
-
 package tree;
 
-import javax.swing.JOptionPane;
-
 public class AddNewNode extends javax.swing.JFrame {
-    private TreeMainFrame MainFrame; 
+
+    private TreeMainFrame MainFrame;
+
     public AddNewNode() {
         initComponents();
     }
@@ -17,11 +16,13 @@ public class AddNewNode extends javax.swing.JFrame {
         Left = new javax.swing.JButton();
         Right = new javax.swing.JButton();
         Value = new javax.swing.JTextField();
+        Cancel = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(250, 125));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(250, 160));
         setResizable(false);
 
-        label.setText("Выберите узел");
+        label.setText("<html>Определите вес: <br>Выберите узел:\n");
 
         Left.setText("Левый");
         Left.addActionListener(new java.awt.event.ActionListener() {
@@ -31,8 +32,12 @@ public class AddNewNode extends javax.swing.JFrame {
         });
 
         Right.setText("Правый");
+        Right.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RightActionPerformed(evt);
+            }
+        });
 
-        Value.setText("jTextField1");
         Value.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ValueMouseClicked(evt);
@@ -44,39 +49,51 @@ public class AddNewNode extends javax.swing.JFrame {
             }
         });
 
+        Cancel.setText("Отмена");
+        Cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(Left)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(Right)
-                .addGap(40, 40, 40))
-            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(label))
+                        .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Value, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(Value, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Left)
+                        .addGap(39, 39, 39)
+                        .addComponent(Right)))
+                .addContainerGap(47, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Cancel)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(label)
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Value, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Left)
                     .addComponent(Right))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Value, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Cancel)
+                .addContainerGap(49, Short.MAX_VALUE))
         );
+
+        label.getAccessibleContext().setAccessibleName("Выберите узел \nи определите вес ");
 
         getAccessibleContext().setAccessibleParent(this);
 
@@ -84,19 +101,26 @@ public class AddNewNode extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LeftActionPerformed
-        try{
-            if(!TreeMainFrame.nodes.isEmpty()){
-                TreeMainFrame.nodes.add(new Node(MainFrame.SelectedNode.getName()+"0", 18, MainFrame.SelectedNode));
-            }
-            else TreeMainFrame.nodes.add(new Node("Start",Integer.parseInt(Value.getText()), MainFrame.SelectedNode));
-            
-                setVisible(false);
-                MainFrame.DrawNode(Math.abs(MainFrame.DrawPanel.getWidth()/2-10),10,TreeMainFrame.nodes.get(0));
-                getMainFrame();
+
+        if (!TreeMainFrame.nodes.isEmpty()) {
+            TreeMainFrame.nodes.add(new Node(MainFrame.selectedNode.getName() + "0", Integer.parseInt(Value.getText()), MainFrame.searchNode()));
+            MainFrame.searchNode().left = TreeMainFrame.nodes.get(TreeMainFrame.nodes.size() - 1);
+            MainFrame.selectedNode = TreeMainFrame.nodes.get(TreeMainFrame.nodes.size() - 1);
+        } else {
+            TreeMainFrame.nodes.add(new Node("Start", Integer.parseInt(Value.getText()), null));
+            MainFrame.selectedNode = TreeMainFrame.nodes.get(0);
         }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Ошибка, попробуйте снова");
-        }
+
+        setVisible(false);
+
+        MainFrame.gr2d.clearRect(0, 0, 440, 450);
+        MainFrame.drawNode(Math.abs(MainFrame.DrawPanel.getWidth() / 2 - 10), 10, TreeMainFrame.nodes.get(0));
+        TreeMainFrame.nodes.stream().forEach((node) -> {
+            System.out.println(node.getName());
+        });
+
+        getMainFrame();
+
     }//GEN-LAST:event_LeftActionPerformed
 
     private void ValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ValueActionPerformed
@@ -107,18 +131,49 @@ public class AddNewNode extends javax.swing.JFrame {
         // TODO add your handling code here:
         Value.setText("");
     }//GEN-LAST:event_ValueMouseClicked
-    
-        public TreeMainFrame getMainFrame() {
-            MainFrame.setEnabled(true);
-            return MainFrame;
+
+    private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        getMainFrame();
+    }//GEN-LAST:event_CancelActionPerformed
+
+    private void RightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RightActionPerformed
+        // TODO add your handling code here:
+
+        if (!TreeMainFrame.nodes.isEmpty()) {
+            TreeMainFrame.nodes.add(new Node(MainFrame.selectedNode.getName() + "1", Integer.parseInt(Value.getText()), MainFrame.searchNode()));
+            MainFrame.searchNode().right = TreeMainFrame.nodes.get(TreeMainFrame.nodes.size() - 1);
+            MainFrame.selectedNode = TreeMainFrame.nodes.get(TreeMainFrame.nodes.size() - 1);
+        } else {
+            TreeMainFrame.nodes.add(new Node("Start", Integer.parseInt(Value.getText()), null));
+            MainFrame.selectedNode = TreeMainFrame.nodes.get(0);
         }
 
-        public void setMainFrame(TreeMainFrame MainFrame) {
-            this.MainFrame = MainFrame;
-            this.setVisible(true);
-        }
+        setVisible(false);
+
+        MainFrame.gr2d.clearRect(0, 0, 440, 450);
+        MainFrame.drawNode(Math.abs(MainFrame.DrawPanel.getWidth() / 2 - 10), 10, TreeMainFrame.nodes.get(0));
+        TreeMainFrame.nodes.stream().forEach((node) -> {
+            System.out.println(node.getName());
+        });
+
+        getMainFrame();
+
+    }//GEN-LAST:event_RightActionPerformed
+
+    public TreeMainFrame getMainFrame() {
+        MainFrame.setEnabled(true);
+        return MainFrame;
+    }
+
+    public void setMainFrame(TreeMainFrame MainFrame) {
+        this.MainFrame = MainFrame;
+        this.setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Cancel;
     private javax.swing.JButton Left;
     private javax.swing.JButton Right;
     private javax.swing.JTextField Value;
