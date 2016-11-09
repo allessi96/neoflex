@@ -1,25 +1,37 @@
-
 package tree;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class TreeMainFrame extends javax.swing.JFrame {
-    
-    public static ArrayList<Node> nodes=new ArrayList<>();
+
+    public static ArrayList<Node> nodes = new ArrayList<>();
     Graphics g;
-    Node SelectedNode;
-    
+    Graphics2D gr2d;
+    Node selectedNode;
+
     public TreeMainFrame() {
         initComponents();
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
         this.g = DrawPanel.getGraphics();
+        this.gr2d = (Graphics2D) g;
+        gr2d.setBackground(Color.white);
+        gr2d.setColor(Color.green);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         DrawPanel = new javax.swing.JPanel();
         NewNode = new javax.swing.JButton();
@@ -41,6 +53,9 @@ public class TreeMainFrame extends javax.swing.JFrame {
 
         DrawPanel.setBackground(new java.awt.Color(255, 255, 255));
         DrawPanel.setPreferredSize(new java.awt.Dimension(440, 450));
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, DrawPanel, org.jdesktop.beansbinding.ObjectProperty.create(), DrawPanel, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        bindingGroup.addBinding(binding);
 
         javax.swing.GroupLayout DrawPanelLayout = new javax.swing.GroupLayout(DrawPanel);
         DrawPanel.setLayout(DrawPanelLayout);
@@ -122,66 +137,97 @@ public class TreeMainFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getAccessibleContext().setAccessibleName("TreeMainFrame");
         getAccessibleContext().setAccessibleDescription("");
+        getAccessibleContext().setAccessibleParent(this);
+
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
 //обработчик нажатий на стрелки
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        String key=KeyEvent.getKeyText(evt.getKeyCode());
-        SelectedNode=nodes.get(0);
-        if(KeyEvent.getKeyText(evt.getKeyCode()).equals("Up")&&(SelectedNode.parent!=null))
-            SelectedNode=SelectedNode.parent;
-        else if(KeyEvent.getKeyText(evt.getKeyCode()).equals("Left")&&(SelectedNode.left!=null)) 
-            SelectedNode=SelectedNode.left;
-        else if(KeyEvent.getKeyText(evt.getKeyCode()).equals("Right")&&(SelectedNode.right!=null)) 
-            SelectedNode=SelectedNode.right;
-        DrawNode(Math.abs(DrawPanel.getWidth()/2-10),10,TreeMainFrame.nodes.get(0));
-        
+
+        System.out.println(this.isFocusable());
+        if (!nodes.isEmpty()) {
+            if (KeyEvent.getKeyText(evt.getKeyCode()).equals("Up") && (searchNode().parent != null)) {
+                System.out.println("up");
+                selectedNode = searchNode().parent;
+            } else if (KeyEvent.getKeyText(evt.getKeyCode()).equals("Left") && (searchNode().left != null)) {
+                System.out.println("left");
+                selectedNode = searchNode().left;
+            } else if (KeyEvent.getKeyText(evt.getKeyCode()).equals("Right") && (searchNode().right != null)) {
+                System.out.println("rig");
+                selectedNode = searchNode().right;
+            }
+        }
+
+        System.out.println("SN=" + selectedNode.name);
+
+        gr2d.clearRect(0, 0, 440, 450);
+        drawNode(Math.abs(DrawPanel.getWidth() / 2 - 10), 10, nodes.get(0));
+
     }//GEN-LAST:event_formKeyPressed
 
     private void NewNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewNodeActionPerformed
-        // TODO add your handling code here:
-       new AddNewNode().setMainFrame(TreeMainFrame.this);
-       setEnabled(false);
+        new AddNewNode().setMainFrame(TreeMainFrame.this);
+        setEnabled(false);
+        this.requestFocus();
     }//GEN-LAST:event_NewNodeActionPerformed
 
     private void RemoveNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveNodeActionPerformed
-        // TODO add your handling code here:
+        
+        if((selectedNode.getLeft()==null)&&(selectedNode.getRight()==null)){
+            Node temp=selectedNode;
+            nodes.remove(selectedNode);
+            selectedNode=temp.parent;
+            selectedNode.setLeft(null);
+            selectedNode.setRight(null);
+            
+            gr2d.clearRect(0, 0, 440, 450);
+            drawNode(Math.abs(DrawPanel.getWidth() / 2 - 10), 10, nodes.get(0));
+        }
+        else JOptionPane.showMessageDialog(null, "Удаление невозможно. У узла есть потомки.");
+        
+        this.requestFocus();
     }//GEN-LAST:event_RemoveNodeActionPerformed
-    
-    public void DrawNode(int x,int y,Node n){
-        g.setColor(Color.green);
-        if(n.equals(SelectedNode)) g.fillOval(x, y, 20, 20);
-        else  g.drawOval(x, y, 20, 20);
-        y+=30;x-=50;
-        
-        Node l=n.getLeft();
-        if (l!=null)
-        DrawNode(x,y,n.getLeft());
-        
-        Node r=n.getRight();
-        x+=100;
-        if (r!=null)
-        DrawNode(x,y,n.getRight());
-                
+
+    public void drawNode(int x, int y, Node n) {
+
+        if (n.equals(selectedNode)) {
+            gr2d.fillOval(x, y, 20, 20);
+        } else {
+            gr2d.drawOval(x, y, 20, 20);
+        }
+//
+//        System.out.println("x = " + x + ", y = " + y);
+
+        Node l = n.getLeft();
+        if (l != null) {
+            drawNode(x - 50, y + 30, n.getLeft());
+        }
+
+        Node r = n.getRight();
+        if (r != null) {
+            drawNode(x + 50, y + 30, n.getRight());
+        }
+
     }
-   
-    
-    
-    
-    
-    
-    
-    
+
+    public Node searchNode() {
+        for (Node p : nodes) {
+            if (p.equals(selectedNode)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -219,5 +265,6 @@ public class TreeMainFrame extends javax.swing.JFrame {
     private javax.swing.JButton RemoveNode;
     private javax.swing.JButton SearchName;
     private javax.swing.JButton SearchValue;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
