@@ -119,6 +119,7 @@ public class AddNewNode extends javax.swing.JFrame {
             } else {
                 TreeMainFrame.nodes.add(new Node("Start", Integer.parseInt(value.getText()), null));
                 MainFrame.selectedNode = TreeMainFrame.nodes.get(0);
+                MainFrame.root=TreeMainFrame.nodes.get(0);
             }
 
             setVisible(false);
@@ -156,6 +157,7 @@ public class AddNewNode extends javax.swing.JFrame {
             } else {
                 TreeMainFrame.nodes.add(new Node("Start", Integer.parseInt(value.getText()), null));
                 MainFrame.selectedNode = TreeMainFrame.nodes.get(0);
+                MainFrame.root=TreeMainFrame.nodes.get(0);
             }
 
             setVisible(false);
