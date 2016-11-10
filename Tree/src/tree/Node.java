@@ -28,6 +28,10 @@ public class Node {
         return name;
     }
 
+    int getValue() {
+        return value;
+    }
+    
     Node getParent() {
         return parent;
     }
