@@ -92,37 +92,29 @@ public class SearchNode extends javax.swing.JFrame {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
 
-        boolean flag = false;
+        Node tempNode;
 
         try {
             if (!nameText.getText().equals("") || !valText.getText().equals("")) {
                 if (nameText.isEnabled()) {
-                    for (Node n : TreeMainFrame.nodes) {
-                        if (n.getName().equals(nameText.getText())) {
-                            MainFrame.selectedNode = n;
-                            flag = true;
-                            break;
-                        }
-                    }
+                    tempNode = Node.searchName(nameText.getText(),MainFrame.root);
                 } else {
-                    for (Node n : TreeMainFrame.nodes) {
-                        if (n.getValue() == Integer.parseInt(valText.getText())) {
-                            MainFrame.selectedNode = n;
-                            flag = true;
-                            break;
-                        }
-                    }
+                    tempNode = Node.searchValue(Integer.valueOf(valText.getText()),MainFrame.root);
                 }
-                if (flag == false) {
+                
+                if (tempNode == null) {
                     JOptionPane.showMessageDialog(null, "Узел не найден. Проверьте данные.");
+                } else {
+                    MainFrame.selectedNode = tempNode;
                 }
 
                 setVisible(false);
+                nameText.setEnabled(false);
+                valText.setEnabled(false);
 
                 MainFrame.gr2d.clearRect(0, 0, 440, 450);
                 MainFrame.drawNode(Math.abs(MainFrame.DrawPanel.getWidth() / 2 - 10), 10, TreeMainFrame.nodes.get(0));
-                nameText.setEnabled(false);
-                valText.setEnabled(false);
+                
                 getMainFrame();
             }
         } catch (NumberFormatException | HeadlessException e) {
