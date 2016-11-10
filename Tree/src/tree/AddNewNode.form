@@ -32,26 +32,37 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="cancel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="label" min="-2" pref="96" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="Value" min="-2" pref="63" max="-2" attributes="0"/>
+                      <Component id="addLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="Left" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="Right" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="valLabel" alignment="0" min="-2" pref="96" max="-2" attributes="0"/>
+                          <Component id="left" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="value" min="-2" pref="63" max="-2" attributes="0"/>
+                              <EmptySpace pref="53" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="right" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="Cancel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -60,59 +71,65 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="label" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
-                  <Component id="Value" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="valLabel" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                  <Component id="value" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="addLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="Left" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="Right" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="right" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="left" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="Cancel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="49" max="32767" attributes="0"/>
+              <Component id="cancel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="label">
+    <Component class="javax.swing.JLabel" name="valLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;&#x41e;&#x43f;&#x440;&#x435;&#x434;&#x435;&#x43b;&#x438;&#x442;&#x435; &#x432;&#x435;&#x441;: &lt;br&gt;&#x412;&#x44b;&#x431;&#x435;&#x440;&#x438;&#x442;&#x435; &#x443;&#x437;&#x435;&#x43b;:&#xa;"/>
+        <Property name="text" type="java.lang.String" value=" &#x41e;&#x43f;&#x440;&#x435;&#x434;&#x435;&#x43b;&#x438;&#x442;&#x435; &#x432;&#x435;&#x441;: "/>
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="&#x412;&#x44b;&#x431;&#x435;&#x440;&#x438;&#x442;&#x435; &#x443;&#x437;&#x435;&#x43b; &#xa;&#x438; &#x43e;&#x43f;&#x440;&#x435;&#x434;&#x435;&#x43b;&#x438;&#x442;&#x435; &#x432;&#x435;&#x441; "/>
       </AccessibilityProperties>
     </Component>
-    <Component class="javax.swing.JButton" name="Left">
+    <Component class="javax.swing.JButton" name="left">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x41b;&#x435;&#x432;&#x44b;&#x439;"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="LeftActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="leftActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="Right">
+    <Component class="javax.swing.JButton" name="right">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x41f;&#x440;&#x430;&#x432;&#x44b;&#x439;"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RightActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rightActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="Value">
+    <Component class="javax.swing.JTextField" name="value">
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ValueMouseClicked"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ValueActionPerformed"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="valueMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="Cancel">
+    <Component class="javax.swing.JButton" name="cancel">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x41e;&#x442;&#x43c;&#x435;&#x43d;&#x430;"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CancelActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="addLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x41a;&#x430;&#x43a;&#x43e;&#x439; &#x443;&#x437;&#x435;&#x43b; &#x441;&#x43e;&#x437;&#x434;&#x430;&#x442;&#x44c;?"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
