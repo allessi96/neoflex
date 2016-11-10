@@ -31,7 +31,7 @@ public class Node {
     int getValue() {
         return value;
     }
-    
+
     Node getParent() {
         return parent;
     }
@@ -51,4 +51,39 @@ public class Node {
     void setRight(Node right) {
         this.right = right;
     }
+
+    public static Node searchName(String name, Node n) {
+
+        if (n.getName().equals(name)) {
+            return n;
+        }
+
+        if (n.getLeft() != null) {
+            return searchName(name, n.getLeft());
+        }
+
+        if (n.getRight() != null) {
+            return searchName(name, n.getRight());
+        }
+
+        return null;
+    }
+
+    public static Node searchValue(int val, Node n) {
+
+        if (n.getValue() == val) {
+            return n;
+        }
+
+        if (n.getLeft() != null) {
+            return searchValue(val, n.getLeft());
+        }
+
+        if (n.getRight() != null) {
+            return searchValue(val, n.getRight());
+        }
+        return null;
+
+    }
+
 }
