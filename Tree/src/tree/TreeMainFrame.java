@@ -34,12 +34,11 @@ public class TreeMainFrame extends javax.swing.JFrame {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         DrawPanel = new javax.swing.JPanel();
-        NewNode = new javax.swing.JButton();
-        RemoveNode = new javax.swing.JButton();
-        SearchName = new javax.swing.JButton();
-        SearchValue = new javax.swing.JButton();
-        AllValue = new javax.swing.JButton();
-        AllValueBalans = new javax.swing.JButton();
+        newNode = new javax.swing.JButton();
+        removeNode = new javax.swing.JButton();
+        searchName = new javax.swing.JButton();
+        searchValue = new javax.swing.JButton();
+        allValue = new javax.swing.JButton();
         Dev = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,27 +67,35 @@ public class TreeMainFrame extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        NewNode.setText("Создать узел");
-        NewNode.addActionListener(new java.awt.event.ActionListener() {
+        newNode.setText("Создать узел");
+        newNode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NewNodeActionPerformed(evt);
+                newNodeActionPerformed(evt);
             }
         });
 
-        RemoveNode.setText("Удалить узел");
-        RemoveNode.addActionListener(new java.awt.event.ActionListener() {
+        removeNode.setText("Удалить узел");
+        removeNode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RemoveNodeActionPerformed(evt);
+                removeNodeActionPerformed(evt);
             }
         });
 
-        SearchName.setText("Поиск по имени");
+        searchName.setText("Поиск по имени");
+        searchName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchNameActionPerformed(evt);
+            }
+        });
 
-        SearchValue.setText("Поиск по значению");
+        searchValue.setText("Поиск по значению");
+        searchValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchValueActionPerformed(evt);
+            }
+        });
 
-        AllValue.setText("Вывод всех значений");
-
-        AllValueBalans.setText("Вывод всех значений(баланс)");
+        allValue.setText("Вывод всех значений");
 
         Dev.setText("Пархоменко Александра");
 
@@ -101,12 +108,11 @@ public class TreeMainFrame extends javax.swing.JFrame {
                 .addComponent(DrawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(NewNode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(RemoveNode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SearchName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SearchValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(AllValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(AllValueBalans, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(newNode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(removeNode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(searchName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(searchValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(allValue, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(Dev)))
@@ -115,25 +121,21 @@ public class TreeMainFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(NewNode, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(newNode, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(removeNode, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(searchName, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addComponent(searchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(allValue, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(RemoveNode, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(SearchName, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(SearchValue, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(AllValue, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(AllValueBalans, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                         .addComponent(Dev))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(DrawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)))
+                    .addComponent(DrawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -150,15 +152,15 @@ public class TreeMainFrame extends javax.swing.JFrame {
 
         System.out.println(this.isFocusable());
         if (!nodes.isEmpty()) {
-            if (KeyEvent.getKeyText(evt.getKeyCode()).equals("Up") && (searchNode().parent != null)) {
+            if (KeyEvent.getKeyText(evt.getKeyCode()).equals("Up") && (selectedNode.getParent() != null)) {
                 System.out.println("up");
-                selectedNode = searchNode().parent;
-            } else if (KeyEvent.getKeyText(evt.getKeyCode()).equals("Left") && (searchNode().left != null)) {
+                selectedNode = selectedNode.getParent();
+            } else if (KeyEvent.getKeyText(evt.getKeyCode()).equals("Left") && (selectedNode.getLeft() != null)) {
                 System.out.println("left");
-                selectedNode = searchNode().left;
-            } else if (KeyEvent.getKeyText(evt.getKeyCode()).equals("Right") && (searchNode().right != null)) {
+                selectedNode = selectedNode.getLeft();
+            } else if (KeyEvent.getKeyText(evt.getKeyCode()).equals("Right") && (selectedNode.getRight() != null)) {
                 System.out.println("rig");
-                selectedNode = searchNode().right;
+                selectedNode = selectedNode.getRight();
             }
         }
 
@@ -169,28 +171,58 @@ public class TreeMainFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formKeyPressed
 
-    private void NewNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewNodeActionPerformed
+    private void newNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newNodeActionPerformed
         new AddNewNode().setMainFrame(TreeMainFrame.this);
         setEnabled(false);
         this.requestFocus();
-    }//GEN-LAST:event_NewNodeActionPerformed
+    }//GEN-LAST:event_newNodeActionPerformed
 
-    private void RemoveNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveNodeActionPerformed
-        
-        if((selectedNode.getLeft()==null)&&(selectedNode.getRight()==null)){
-            Node temp=selectedNode;
+    private void removeNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeNodeActionPerformed
+
+        if ((selectedNode.getLeft() == null) && (selectedNode.getRight() == null)) {
+
             nodes.remove(selectedNode);
-            selectedNode=temp.parent;
-            selectedNode.setLeft(null);
-            selectedNode.setRight(null);
-            
-            gr2d.clearRect(0, 0, 440, 450);
-            drawNode(Math.abs(DrawPanel.getWidth() / 2 - 10), 10, nodes.get(0));
+            Node parent = selectedNode.getParent();
+            if (parent == null) {
+                nodes.clear();
+                gr2d.clearRect(0, 0, 440, 450);
+            } else {
+                if (parent.getLeft() != null && parent.getLeft().equals(selectedNode)) {
+                    selectedNode.getParent().setLeft(null);
+                } else {
+                    selectedNode.getParent().setRight(null);
+                }
+                selectedNode = parent;
+                gr2d.clearRect(0, 0, 440, 450);
+                drawNode(Math.abs(DrawPanel.getWidth() / 2 - 10), 10, nodes.get(0));
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Удаление невозможно. У узла есть потомки.");
         }
-        else JOptionPane.showMessageDialog(null, "Удаление невозможно. У узла есть потомки.");
-        
+
         this.requestFocus();
-    }//GEN-LAST:event_RemoveNodeActionPerformed
+    }//GEN-LAST:event_removeNodeActionPerformed
+
+    private void searchNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchNameActionPerformed
+
+        SearchNode sn = new SearchNode();
+        sn.setMainFrame(TreeMainFrame.this);
+        sn.nameText.setEnabled(true);
+        setEnabled(false);
+        this.requestFocus();
+
+    }//GEN-LAST:event_searchNameActionPerformed
+
+    private void searchValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchValueActionPerformed
+
+        SearchNode sn = new SearchNode();
+        sn.setMainFrame(TreeMainFrame.this);
+        sn.valText.setEnabled(true);
+        setEnabled(false);
+        this.requestFocus();
+
+    }//GEN-LAST:event_searchValueActionPerformed
 
     public void drawNode(int x, int y, Node n) {
 
@@ -199,8 +231,6 @@ public class TreeMainFrame extends javax.swing.JFrame {
         } else {
             gr2d.drawOval(x, y, 20, 20);
         }
-//
-//        System.out.println("x = " + x + ", y = " + y);
 
         Node l = n.getLeft();
         if (l != null) {
@@ -212,15 +242,6 @@ public class TreeMainFrame extends javax.swing.JFrame {
             drawNode(x + 50, y + 30, n.getRight());
         }
 
-    }
-
-    public Node searchNode() {
-        for (Node p : nodes) {
-            if (p.equals(selectedNode)) {
-                return p;
-            }
-        }
-        return null;
     }
 
     public static void main(String args[]) {
@@ -257,14 +278,13 @@ public class TreeMainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AllValue;
-    private javax.swing.JButton AllValueBalans;
     private javax.swing.JLabel Dev;
     public javax.swing.JPanel DrawPanel;
-    private javax.swing.JButton NewNode;
-    private javax.swing.JButton RemoveNode;
-    private javax.swing.JButton SearchName;
-    private javax.swing.JButton SearchValue;
+    private javax.swing.JButton allValue;
+    private javax.swing.JButton newNode;
+    private javax.swing.JButton removeNode;
+    private javax.swing.JButton searchName;
+    private javax.swing.JButton searchValue;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
