@@ -97,23 +97,23 @@ public class SearchNode extends javax.swing.JFrame {
         try {
             if (!nameText.getText().equals("") || !valText.getText().equals("")) {
                 if (nameText.isEnabled()) {
-                    tempNode = Node.searchName(nameText.getText(),mainFrame.root);
+                    tempNode = ControlsNode.searchName(nameText.getText(),TreeMainFrame.root);
                 } else {
-                    tempNode = Node.searchValue(Integer.valueOf(valText.getText()),mainFrame.root);
+                    tempNode = ControlsNode.searchValue(Integer.valueOf(valText.getText()),TreeMainFrame.root);
                 }
                 
                 if (tempNode == null) {
                     JOptionPane.showMessageDialog(null, "Узел не найден. Проверьте данные.");
                 } else {
-                    mainFrame.selectedNode = tempNode;
+                    TreeMainFrame.selectedNode = tempNode;
                 }
 
                 setVisible(false);
                 nameText.setEnabled(false);
                 valText.setEnabled(false);
 
-                mainFrame.gr2d.clearRect(0, 0, 440, 450);
-                mainFrame.drawNode(Math.abs(mainFrame.DrawPanel.getWidth() / 2 - 10), 10,mainFrame.root);
+                Drawing.gr2d.clearRect(0, 0, 440, 450);
+                Drawing.drawNode(Math.abs(mainFrame.drawPanel.getWidth() / 2 - 10), 10,TreeMainFrame.root);
                 
                 getMainFrame();
             }
