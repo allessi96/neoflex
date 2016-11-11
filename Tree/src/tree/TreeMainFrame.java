@@ -70,7 +70,7 @@ public class TreeMainFrame extends javax.swing.JFrame {
         );
         DrawPanelLayout.setVerticalGroup(
             DrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 427, Short.MAX_VALUE)
         );
 
         getContentPane().add(DrawPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, 427));
@@ -108,6 +108,11 @@ public class TreeMainFrame extends javax.swing.JFrame {
         getContentPane().add(searchValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(468, 278, 222, 39));
 
         allValue.setText("Вывод всех значений");
+        allValue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allValueActionPerformed(evt);
+            }
+        });
         getContentPane().add(allValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(468, 367, 222, 39));
 
         Dev.setText("Пархоменко Александра");
@@ -201,6 +206,14 @@ public class TreeMainFrame extends javax.swing.JFrame {
         drawNode(Math.abs(DrawPanel.getWidth() / 2 - 10), 10, nodes.get(0));
 
     }//GEN-LAST:event_formKeyReleased
+
+    private void allValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allValueActionPerformed
+        
+        Node.sOutValue(selectedNode);
+        JOptionPane.showMessageDialog(null, Node.values);
+        this.requestFocus();
+        
+    }//GEN-LAST:event_allValueActionPerformed
 
     public void drawNode(int x, int y, Node n) {
 
