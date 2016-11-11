@@ -22,7 +22,7 @@ public class SearchNode extends javax.swing.JFrame {
         cancelButton = new javax.swing.JButton();
         searchButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
 
         nameLabel.setText("Поиск по имени:");
