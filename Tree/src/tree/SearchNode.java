@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 
 public class SearchNode extends javax.swing.JFrame {
 
-    private TreeMainFrame MainFrame;
+    private TreeMainFrame mainFrame;
 
     public SearchNode() {
         initComponents();
@@ -97,23 +97,23 @@ public class SearchNode extends javax.swing.JFrame {
         try {
             if (!nameText.getText().equals("") || !valText.getText().equals("")) {
                 if (nameText.isEnabled()) {
-                    tempNode = Node.searchName(nameText.getText(),MainFrame.root);
+                    tempNode = Node.searchName(nameText.getText(),mainFrame.root);
                 } else {
-                    tempNode = Node.searchValue(Integer.valueOf(valText.getText()),MainFrame.root);
+                    tempNode = Node.searchValue(Integer.valueOf(valText.getText()),mainFrame.root);
                 }
                 
                 if (tempNode == null) {
                     JOptionPane.showMessageDialog(null, "Узел не найден. Проверьте данные.");
                 } else {
-                    MainFrame.selectedNode = tempNode;
+                    mainFrame.selectedNode = tempNode;
                 }
 
                 setVisible(false);
                 nameText.setEnabled(false);
                 valText.setEnabled(false);
 
-                MainFrame.gr2d.clearRect(0, 0, 440, 450);
-                MainFrame.drawNode(Math.abs(MainFrame.DrawPanel.getWidth() / 2 - 10), 10, TreeMainFrame.nodes.get(0));
+                mainFrame.gr2d.clearRect(0, 0, 440, 450);
+                mainFrame.drawNode(Math.abs(mainFrame.DrawPanel.getWidth() / 2 - 10), 10,mainFrame.root);
                 
                 getMainFrame();
             }
@@ -124,12 +124,12 @@ public class SearchNode extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     public TreeMainFrame getMainFrame() {
-        MainFrame.setEnabled(true);
-        return MainFrame;
+        mainFrame.setEnabled(true);
+        return mainFrame;
     }
 
     public void setMainFrame(TreeMainFrame MainFrame) {
-        this.MainFrame = MainFrame;
+        this.mainFrame = MainFrame;
         this.setVisible(true);
     }
 
