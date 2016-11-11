@@ -39,7 +39,7 @@
     <Property name="useNullLayout" type="boolean" value="false"/>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="DrawPanel">
+    <Container class="javax.swing.JPanel" name="drawPanel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -49,10 +49,10 @@
         </Property>
       </Properties>
       <BindingProperties>
-        <BindingProperty name="nextFocusableComponent" source="DrawPanel" target="DrawPanel" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
+        <BindingProperty name="nextFocusableComponent" source="drawPanel" target="drawPanel" targetPath="nextFocusableComponent" updateStrategy="0" immediately="false"/>
       </BindingProperties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

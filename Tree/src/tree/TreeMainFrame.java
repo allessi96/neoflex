@@ -1,19 +1,15 @@
 package tree;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import static tree.Drawing.gr2d;
 
 public class TreeMainFrame extends javax.swing.JFrame {
-
-    Graphics g;
-    Graphics2D gr2d;
+    
     static Node root;
     static Node selectedNode;
-
+    
     public TreeMainFrame() {
         initComponents();
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -22,18 +18,16 @@ public class TreeMainFrame extends javax.swing.JFrame {
                 formKeyPressed(evt);
             }
         });
-        this.g = DrawPanel.getGraphics();
-        this.gr2d = (Graphics2D) g;
-        gr2d.setBackground(Color.white);
-        gr2d.setColor(Color.black);
+        Drawing.gr2d.setBackground(Color.white);
+        Drawing.gr2d.setColor(Color.black);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        DrawPanel = new javax.swing.JPanel();
+        drawPanel = new javax.swing.JPanel();
         newNode = new javax.swing.JButton();
         removeNode = new javax.swing.JButton();
         searchName = new javax.swing.JButton();
@@ -54,24 +48,24 @@ public class TreeMainFrame extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        DrawPanel.setBackground(new java.awt.Color(255, 255, 255));
-        DrawPanel.setPreferredSize(new java.awt.Dimension(440, 450));
+        drawPanel.setBackground(new java.awt.Color(255, 255, 255));
+        drawPanel.setPreferredSize(new java.awt.Dimension(440, 450));
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, DrawPanel, org.jdesktop.beansbinding.ObjectProperty.create(), DrawPanel, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, drawPanel, org.jdesktop.beansbinding.ObjectProperty.create(), drawPanel, org.jdesktop.beansbinding.BeanProperty.create("nextFocusableComponent"));
         bindingGroup.addBinding(binding);
 
-        javax.swing.GroupLayout DrawPanelLayout = new javax.swing.GroupLayout(DrawPanel);
-        DrawPanel.setLayout(DrawPanelLayout);
-        DrawPanelLayout.setHorizontalGroup(
-            DrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout drawPanelLayout = new javax.swing.GroupLayout(drawPanel);
+        drawPanel.setLayout(drawPanelLayout);
+        drawPanelLayout.setHorizontalGroup(
+            drawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 440, Short.MAX_VALUE)
         );
-        DrawPanelLayout.setVerticalGroup(
-            DrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        drawPanelLayout.setVerticalGroup(
+            drawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 427, Short.MAX_VALUE)
         );
 
-        getContentPane().add(DrawPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, 427));
+        getContentPane().add(drawPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, -1, 427));
 
         newNode.setText("Создать узел");
         newNode.addActionListener(new java.awt.event.ActionListener() {
@@ -131,27 +125,13 @@ public class TreeMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_newNodeActionPerformed
 
     private void removeNodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeNodeActionPerformed
-
+        
         if ((selectedNode.getLeft() == null) && (selectedNode.getRight() == null)) {
-
-            if (selectedNode.getParent() == null) {
-                root = null;
-                gr2d.clearRect(0, 0, 440, 450);
-            } else {
-                if (selectedNode.getParent().getLeft() != null && selectedNode.getParent().getLeft().equals(selectedNode)) {
-                    selectedNode.getParent().setLeft(null);
-                } else {
-                    selectedNode.getParent().setRight(null);
-                }
-                selectedNode = selectedNode.getParent();
-                gr2d.clearRect(0, 0, 440, 450);
-                drawNode(Math.abs(DrawPanel.getWidth() / 2 - 10), 10, root);
-            }
-
+            ControlsNode.remove(selectedNode);
         } else {
             JOptionPane.showMessageDialog(null, "Удаление невозможно. У узла есть потомки.");
         }
-
+        
         this.requestFocus();
     }//GEN-LAST:event_removeNodeActionPerformed
 
@@ -192,59 +172,22 @@ public class TreeMainFrame extends javax.swing.JFrame {
                 selectedNode = selectedNode.getRight();
             }
         }
-
-        gr2d.clearRect(0, 0, 440, 450);
-        drawNode(Math.abs(DrawPanel.getWidth() / 2 - 10), 10, root);
+        
+        Drawing.gr2d.clearRect(0, 0, 440, 450);
+        Drawing.drawNode(Math.abs(drawPanel.getWidth() / 2 - 10), 10, root);
 
     }//GEN-LAST:event_formKeyReleased
 
     private void allValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allValueActionPerformed
-
-        Node parent = selectedNode.getParent();
-        Node.sOutValue(selectedNode);
-        if (parent == null) {
-            root = selectedNode;
-        } else {
-            selectedNode.setParent(parent);
-        }
-
+        ControlsNode.allValue(selectedNode);
+        JOptionPane.showMessageDialog(null, ControlsNode.valuesStr);
         this.requestFocus();
-
-        gr2d.clearRect(0, 0, 440, 450);
-        drawNode(Math.abs(DrawPanel.getWidth() / 2 - 10), 10, root);
+        
+        Drawing.gr2d.clearRect(0, 0, 440, 450);
+        Drawing.drawNode(Math.abs(drawPanel.getWidth() / 2 - 10), 10, root);
 
     }//GEN-LAST:event_allValueActionPerformed
-
-    public void drawNode(int x, int y, Node n) {
-
-        Node l = n.getLeft();
-        if (l != null) {
-
-            drawNode((int) (x - 50 - 10), y + 60, n.getLeft());
-            gr2d.drawLine(x + 10, y + 20, x - 50, y + 60);
-
-        }
-
-        Node r = n.getRight();
-        if (r != null) {
-            drawNode(x + 50, y + 60, n.getRight());
-            gr2d.drawLine(x + 10, y + 20, x + 50 + 10, y + 60);
-        }
-
-        if (n.equals(selectedNode)) {
-            gr2d.setColor(Color.red);
-        }
-        gr2d.fillOval(x, y, 20, 20);
-
-        gr2d.setColor(Color.black);
-
-        JLabel valueNodeLabel = new JLabel(Integer.toString(n.getValue()));
-        valueNodeLabel.setAlignmentX(x - 20);
-        valueNodeLabel.setAlignmentY(y);
-        DrawPanel.add(valueNodeLabel);
-
-    }
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -258,30 +201,25 @@ public class TreeMainFrame extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TreeMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TreeMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TreeMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TreeMainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
+        
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TreeMainFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new TreeMainFrame().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Dev;
-    public javax.swing.JPanel DrawPanel;
     private javax.swing.JButton allValue;
+    public static javax.swing.JPanel drawPanel;
     private javax.swing.JButton newNode;
     private javax.swing.JButton removeNode;
     private javax.swing.JButton searchName;
