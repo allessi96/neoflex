@@ -15,12 +15,12 @@ import javax.swing.JOptionPane;
  *
  * @author User
  */
-public class Node{
+public class Node {
 
     String name;
-    Node parent=null;
-    Node left=null;
-    Node right=null;
+    Node parent = null;
+    Node left = null;
+    Node right = null;
     int value;
     int height = 0;
     static ArrayList<Node> nodes;
@@ -54,6 +54,14 @@ public class Node{
         return right;
     }
 
+    int getHeight() {
+        return height;
+    }
+    
+    void setHeight(int i) {
+        this.height = i;
+    }
+    
     void setLeft(Node left) {
         this.left = left;
     }
@@ -62,7 +70,7 @@ public class Node{
         this.right = right;
     }
 
-    private void setParent(Node y) {
+    void setParent(Node y) {
         this.parent = y;
     }
 
@@ -109,39 +117,66 @@ public class Node{
     }
 
     public static void sOutValue(Node n) {
-//
-//        if (n.getLeft() != null) {
-//            sOutValue(n.getLeft());
-//        }
-//
-//        if (n.getRight() != null) {
-//            sOutValue(n.getRight());
-//        }
-//
-//        valuesStr += Integer.toString(n.getValue()) + ' ';
         sorting(n);
     }
 
     private static void sorting(Node n) {
         nodes = new ArrayList<>();
         valuesStr = "";
-        String jop="";
+        String jop = "";
         toArrayList(n);
-        Collections.sort(nodes, (Node node2, Node node1) -> node1.getValue().compareTo(node2.getValue()));
-                
-        jop = nodes.stream().map((node) -> node.getValue()+" ").reduce(jop, String::concat);
-        
-        JOptionPane.showMessageDialog(null, jop);
-        //balancing(nodes.get(0));
-    }
-    
-    private void balancing(Node n){
-        
-        
-        
+
+        Collections.sort(nodes, (Node node1, Node node2) -> node1.getValue() - node2.getValue());
+
+        if (nodes.size() > 1) {
+            nodes.get(0).setParent(null);
+            nodes.get(0).setRight(nodes.get(1));
+            nodes.get(0).setLeft(null);
+            for (int i = 1; i < nodes.size() - 1; i++) {
+                nodes.get(i).setParent(nodes.get(i - 1));
+                nodes.get(i).setRight(nodes.get(i + 1));
+                nodes.get(i).setLeft(null);
+            }
+            nodes.get(nodes.size() - 1).setParent(nodes.get(nodes.size() - 2));
+            nodes.get(nodes.size() - 1).setRight(null);
+            nodes.get(nodes.size() - 1).setLeft(null);
+
+            
+            balancing(nodes.get(0));
+
+            nodes.stream().filter((node) -> (node.getParent() == null)).forEach((node) -> {
+                TreeMainFrame.selectedNode = node;
+            });
+        }
+
     }
 
-    private static  void toArrayList(Node n) {
+    private static void balancing(Node n) {
+        int balanceFactor = nodeHeight(n.getLeft()) - nodeHeight(n.getRight());
+        System.out.println(balanceFactor);
+        System.out.println(nodeHeight(n.getLeft()));
+        System.out.println(nodeHeight(n.getRight()));
+        if (balanceFactor <= 1 && balanceFactor >= -1) {
+            if (n.getLeft() != null) {
+                balancing(n.getLeft());
+            }
+
+            if (n.getRight() != null) {
+                balancing(n.getRight());
+            }
+        } else {
+            if (balanceFactor < 0) {
+                leftRotation(n);
+                balancing(n);
+            } else {
+                rightRotation(n);
+                balancing(n);
+            }
+        }
+
+    }
+
+    private static void toArrayList(Node n) {
         if (n.getLeft() != null) {
             toArrayList(n.getLeft());
         }
@@ -150,10 +185,10 @@ public class Node{
             toArrayList(n.getRight());
         }
         nodes.add(n);
-        
+
     }
 
-    private void leftRotation(Node x) {
+    private static void leftRotation(Node x) {
 
         Node y = x.getRight();
         x.setRight(y.getLeft());
@@ -171,7 +206,7 @@ public class Node{
         x.setParent(y);
     }
 
-    private void rightRotation(Node x) {
+    private static void rightRotation(Node x) {
         Node y = x.getLeft();
         x.setLeft(y.getRight());
         if (y.getRight() != null) {
@@ -188,6 +223,7 @@ public class Node{
         x.setParent(y);
     }
 
+    //ошибка в реализации
     private static int nodeHeight(Node n) {
         int l = 0, r = 0;
         if (n != null) {
@@ -199,18 +235,15 @@ public class Node{
                 r = nodeHeight(n.getLeft());
             }
             if (l > r) {
-                n.height = l + 1;
+                n.setHeight(l + 1);
             } else {
-                n.height = r + 1;
+                n.setHeight(r + 1);
             }
-            return n.height;
+            return n.getHeight();
         } else {
             return 0;
         }
     }
-    
-    private boolean balanceFactor(Node n){
-        return Math.abs(nodeHeight(n.getLeft())-(nodeHeight(n.getRight()))) <= 1;
-    }
+
 
 }
