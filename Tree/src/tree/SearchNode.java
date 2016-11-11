@@ -83,6 +83,7 @@ public class SearchNode extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -97,11 +98,11 @@ public class SearchNode extends javax.swing.JFrame {
         try {
             if (!nameText.getText().equals("") || !valText.getText().equals("")) {
                 if (nameText.isEnabled()) {
-                    tempNode = ControlsNode.searchName(nameText.getText(),TreeMainFrame.root);
+                    tempNode = ControlsNode.searchName(nameText.getText(), TreeMainFrame.root);
                 } else {
-                    tempNode = ControlsNode.searchValue(Integer.valueOf(valText.getText()),TreeMainFrame.root);
+                    tempNode = ControlsNode.searchValue(Integer.valueOf(valText.getText()), TreeMainFrame.root);
                 }
-                
+
                 if (tempNode == null) {
                     JOptionPane.showMessageDialog(null, "Узел не найден. Проверьте данные.");
                 } else {
@@ -113,8 +114,8 @@ public class SearchNode extends javax.swing.JFrame {
                 valText.setEnabled(false);
 
                 Drawing.gr2d.clearRect(0, 0, 440, 450);
-                Drawing.drawNode(Math.abs(mainFrame.drawPanel.getWidth() / 2 - 10), 10,TreeMainFrame.root);
-                
+                Drawing.drawNode(Math.abs(220 - 10), 10, TreeMainFrame.root, 110);
+
                 getMainFrame();
             }
         } catch (NumberFormatException | HeadlessException e) {

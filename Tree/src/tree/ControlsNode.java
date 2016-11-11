@@ -13,17 +13,17 @@ public class ControlsNode {
         Node parent = n.getParent();
 
         if (parent == null) {
-            sOutValue(n);
-            TreeMainFrame.root = n;
+            outValue(n);
+            TreeMainFrame.root = TreeMainFrame.selectedNode;
         } else {
             if (n.equals(parent.getLeft())) {
-                sOutValue(n);
-                n.setParent(parent);
-                n.getParent().setLeft(n);
+                outValue(n);
+                TreeMainFrame.selectedNode.setParent(parent);
+                TreeMainFrame.selectedNode.getParent().setLeft(TreeMainFrame.selectedNode);
             } else {
-                sOutValue(n);
-                n.setParent(parent);
-                n.getParent().setRight(n);
+                outValue(n);
+                TreeMainFrame.selectedNode.setParent(parent);
+                TreeMainFrame.selectedNode.getParent().setRight(TreeMainFrame.selectedNode);
             }
         }
 
@@ -64,45 +64,53 @@ public class ControlsNode {
             }
             TreeMainFrame.selectedNode = n.getParent();
             Drawing.gr2d.clearRect(0, 0, 440, 450);
-            Drawing.drawNode(Math.abs(TreeMainFrame.drawPanel.getWidth() / 2 - 10), 10, TreeMainFrame.root);
+            Drawing.drawNode(Math.abs(220 - 10), 10, TreeMainFrame.root, 110);
         }
     }
 
     public static Node searchName(String name, Node n) {
         Node node = null;
+
         if (n.getName().equals(name)) {
             node = n;
+            return node;
+        } else {
+            if (n.getLeft() != null) {
+                node = searchName(name, n.getLeft());
+            }
+            if (node == null) {
+                if (n.getRight() != null) {
+                    node = searchName(name, n.getRight());
+                }
+            } else {
+                return node;
+            }
+            return node;
         }
-
-        if (n.getLeft() != null) {
-            node = searchName(name, n.getLeft());
-        }
-
-        if (n.getRight() != null) {
-            node = searchName(name, n.getRight());
-        }
-
-        return node;
     }
 
     public static Node searchValue(int val, Node n) {
         Node node = null;
+
         if (n.getValue() == val) {
             node = n;
+            return node;
+        } else {
+            if (n.getLeft() != null) {
+                node = searchValue(val, n.getLeft());
+            }
+            if (node == null) {
+                if (n.getRight() != null) {
+                    node = searchValue(val, n.getRight());
+                }
+            } else {
+                return node;
+            }
+            return node;
         }
-
-        if (n.getLeft() != null) {
-            node = searchValue(val, n.getLeft());
-        }
-
-        if (n.getRight() != null) {
-            node = searchValue(val, n.getRight());
-        }
-        return node;
-
     }
 
-    public static void sOutValue(Node n) {
+    public static void outValue(Node n) {
         sorting(n);
         nodes.stream().forEach((node) -> {
             valuesStr += node.getValue() + " ";
@@ -112,7 +120,6 @@ public class ControlsNode {
     private static void sorting(Node n) {
         nodes = new ArrayList<>();
         valuesStr = "";
-        String jop = "";
         toArrayList(n);
 
         Collections.sort(nodes, (Node node1, Node node2) -> node1.getValue() - node2.getValue());
@@ -141,9 +148,6 @@ public class ControlsNode {
 
     private static void balancing(Node n) {
         int balanceFactor = nodeHeight(n.getLeft()) - nodeHeight(n.getRight());
-        System.out.println("bf" + balanceFactor);
-        System.out.println("height left" + nodeHeight(n.getLeft()));
-        System.out.println("height rig" + nodeHeight(n.getRight()));
         if (balanceFactor <= 1 && balanceFactor >= -1) {
             if (n.getLeft() != null) {
                 balancing(n.getLeft());
@@ -246,7 +250,7 @@ public class ControlsNode {
         }
 
         if (n.getRight() != null) {
-            n.getRight().setName(n.getRight() + "1");
+            n.getRight().setName(n.getName() + "1");
             rename(n.getRight());
         }
     }

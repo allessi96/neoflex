@@ -1,13 +1,6 @@
-
 package tree;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
-
 public class Node {
-
-    
 
     String name;
     Node parent = null;

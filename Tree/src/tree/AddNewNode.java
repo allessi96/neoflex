@@ -22,6 +22,7 @@ public class AddNewNode extends javax.swing.JFrame {
         addLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setLocation(new java.awt.Point(500, 300));
         setPreferredSize(new java.awt.Dimension(250, 160));
         setResizable(false);
 
@@ -94,6 +95,7 @@ public class AddNewNode extends javax.swing.JFrame {
         getAccessibleContext().setAccessibleParent(this);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void leftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftActionPerformed
@@ -101,7 +103,7 @@ public class AddNewNode extends javax.swing.JFrame {
             ControlsNode.addLeft(TreeMainFrame.selectedNode, Integer.parseInt(value.getText()));
             setVisible(false);
             Drawing.gr2d.clearRect(0, 0, 440, 450);
-            Drawing.drawNode(Math.abs(TreeMainFrame.drawPanel.getWidth() / 2 - 10), 10, TreeMainFrame.root);
+            Drawing.drawNode(Math.abs(220 - 10), 10, TreeMainFrame.root, 110);
             getMainFrame();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ошибка ввода данных.Попробуйте снова");
@@ -118,7 +120,7 @@ public class AddNewNode extends javax.swing.JFrame {
             ControlsNode.addRight(TreeMainFrame.selectedNode, Integer.parseInt(value.getText()));
             setVisible(false);
             Drawing.gr2d.clearRect(0, 0, 440, 450);
-            Drawing.drawNode(Math.abs(TreeMainFrame.drawPanel.getWidth() / 2 - 10), 10, TreeMainFrame.root);
+            Drawing.drawNode(Math.abs(220 - 10), 10, TreeMainFrame.root, 110);
             getMainFrame();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ошибка ввода данных.Попробуйте снова");
