@@ -16,6 +16,7 @@ public class Node {
     Node left;
     Node right;
     int value;
+    public static String values = "";
 
     Node(String name, int value, Node parent) {
         this.name = name;
@@ -86,4 +87,26 @@ public class Node {
 
     }
 
+    public static void sOutValue(Node n) {
+
+        if (n.getLeft() != null) {
+            sOutValue(n.getLeft());
+        }
+
+        if (n.getRight() != null) {
+            sOutValue(n.getRight());
+        }
+
+        values += Integer.toString(n.getValue()) + ' ';
+
+    }
+
+    private void balans() {
+        
+        values="";
+        
+        
+        
+
+    }
 }
