@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 public class AddNewNode extends javax.swing.JFrame {
 
-    private TreeMainFrame MainFrame;
+    private TreeMainFrame mainFrame;
 
     public AddNewNode() {
         initComponents();
@@ -105,24 +105,19 @@ public class AddNewNode extends javax.swing.JFrame {
     private void leftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftActionPerformed
 
         try {
-            if (!TreeMainFrame.nodes.isEmpty()) {
-                TreeMainFrame.nodes.add(new Node(MainFrame.selectedNode.getName() + "0", Integer.parseInt(value.getText()), MainFrame.selectedNode));
-                MainFrame.selectedNode.setLeft(TreeMainFrame.nodes.get(TreeMainFrame.nodes.size() - 1));
-                MainFrame.selectedNode = MainFrame.selectedNode.getLeft();
+            if (mainFrame.root!=null) {
+                mainFrame.selectedNode.setLeft(new Node(mainFrame.selectedNode.getName() + "0", Integer.parseInt(value.getText()), mainFrame.selectedNode));
+                mainFrame.selectedNode = mainFrame.selectedNode.getLeft();
             } else {
-                TreeMainFrame.nodes.add(new Node("Start", Integer.parseInt(value.getText()), null));
-                MainFrame.selectedNode = TreeMainFrame.nodes.get(0);
-                MainFrame.root=TreeMainFrame.nodes.get(0);
+                mainFrame.root = new Node("Start", Integer.parseInt(value.getText()), null);
+                mainFrame.selectedNode = mainFrame.root;
             }
 
             setVisible(false);
 
-            MainFrame.gr2d.clearRect(0, 0, 440, 450);
-            MainFrame.drawNode(Math.abs(MainFrame.DrawPanel.getWidth() / 2 - 10), 10, TreeMainFrame.nodes.get(0));
-            TreeMainFrame.nodes.stream().forEach((node) -> {
-                System.out.println(node.getName());
-            });
-
+            mainFrame.gr2d.clearRect(0, 0, 440, 450);
+            mainFrame.drawNode(Math.abs(mainFrame.DrawPanel.getWidth() / 2 - 10), 10, mainFrame.root);
+            
             getMainFrame();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ошибка ввода данных.Попробуйте снова");
@@ -135,31 +130,26 @@ public class AddNewNode extends javax.swing.JFrame {
     }//GEN-LAST:event_valueMouseClicked
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-        
+
         setVisible(false);
         getMainFrame();
     }//GEN-LAST:event_cancelActionPerformed
 
     private void rightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightActionPerformed
-        
+
         try {
-            if (!TreeMainFrame.nodes.isEmpty()) {
-                TreeMainFrame.nodes.add(new Node(MainFrame.selectedNode.getName() + "1", Integer.parseInt(value.getText()), MainFrame.selectedNode));
-                MainFrame.selectedNode.setRight(TreeMainFrame.nodes.get(TreeMainFrame.nodes.size() - 1));
-                MainFrame.selectedNode = MainFrame.selectedNode.getRight();
+            if (TreeMainFrame.root!=null) {
+                mainFrame.selectedNode.setRight(new Node(mainFrame.selectedNode.getName() + "1", Integer.parseInt(value.getText()), mainFrame.selectedNode));
+                mainFrame.selectedNode = mainFrame.selectedNode.getRight();
             } else {
-                TreeMainFrame.nodes.add(new Node("Start", Integer.parseInt(value.getText()), null));
-                MainFrame.selectedNode = TreeMainFrame.nodes.get(0);
-                MainFrame.root=TreeMainFrame.nodes.get(0);
+                TreeMainFrame.root=new Node("Start", Integer.parseInt(value.getText()), null);
+                mainFrame.selectedNode = TreeMainFrame.root;
             }
 
             setVisible(false);
 
-            MainFrame.gr2d.clearRect(0, 0, 440, 450);
-            MainFrame.drawNode(Math.abs(MainFrame.DrawPanel.getWidth() / 2 - 10), 10, TreeMainFrame.nodes.get(0));
-            TreeMainFrame.nodes.stream().forEach((node) -> {
-                System.out.println(node.getName());
-            });
+            mainFrame.gr2d.clearRect(0, 0, 440, 450);
+            mainFrame.drawNode(Math.abs(mainFrame.DrawPanel.getWidth() / 2 - 10), 10, TreeMainFrame.root);
 
             getMainFrame();
         } catch (Exception e) {
@@ -168,12 +158,12 @@ public class AddNewNode extends javax.swing.JFrame {
     }//GEN-LAST:event_rightActionPerformed
 
     public TreeMainFrame getMainFrame() {
-        MainFrame.setEnabled(true);
-        return MainFrame;
+        mainFrame.setEnabled(true);
+        return mainFrame;
     }
 
     public void setMainFrame(TreeMainFrame MainFrame) {
-        this.MainFrame = MainFrame;
+        this.mainFrame = MainFrame;
         this.setVisible(true);
     }
 
