@@ -41,12 +41,6 @@ public class AddNewNode extends javax.swing.JFrame {
             }
         });
 
-        value.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                valueMouseClicked(evt);
-            }
-        });
-
         cancel.setText("Отмена");
         cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,54 +97,28 @@ public class AddNewNode extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void leftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftActionPerformed
-
         try {
-            if (mainFrame.root!=null) {
-                mainFrame.selectedNode.setLeft(new Node(mainFrame.selectedNode.getName() + "0", Integer.parseInt(value.getText()), mainFrame.selectedNode));
-                mainFrame.selectedNode = mainFrame.selectedNode.getLeft();
-            } else {
-                mainFrame.root = new Node("Start", Integer.parseInt(value.getText()), null);
-                mainFrame.selectedNode = mainFrame.root;
-            }
-
+            ControlsNode.addLeft(TreeMainFrame.selectedNode, Integer.parseInt(value.getText()));
             setVisible(false);
-
-            mainFrame.gr2d.clearRect(0, 0, 440, 450);
-            mainFrame.drawNode(Math.abs(mainFrame.DrawPanel.getWidth() / 2 - 10), 10, mainFrame.root);
-            
+            Drawing.gr2d.clearRect(0, 0, 440, 450);
+            Drawing.drawNode(Math.abs(TreeMainFrame.drawPanel.getWidth() / 2 - 10), 10, TreeMainFrame.root);
             getMainFrame();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ошибка ввода данных.Попробуйте снова");
         }
     }//GEN-LAST:event_leftActionPerformed
 
-    private void valueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_valueMouseClicked
-        // TODO add your handling code here:
-        value.setText("");
-    }//GEN-LAST:event_valueMouseClicked
-
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-
         setVisible(false);
         getMainFrame();
     }//GEN-LAST:event_cancelActionPerformed
 
     private void rightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightActionPerformed
-
         try {
-            if (TreeMainFrame.root!=null) {
-                mainFrame.selectedNode.setRight(new Node(mainFrame.selectedNode.getName() + "1", Integer.parseInt(value.getText()), mainFrame.selectedNode));
-                mainFrame.selectedNode = mainFrame.selectedNode.getRight();
-            } else {
-                TreeMainFrame.root=new Node("Start", Integer.parseInt(value.getText()), null);
-                mainFrame.selectedNode = TreeMainFrame.root;
-            }
-
+            ControlsNode.addRight(TreeMainFrame.selectedNode, Integer.parseInt(value.getText()));
             setVisible(false);
-
-            mainFrame.gr2d.clearRect(0, 0, 440, 450);
-            mainFrame.drawNode(Math.abs(mainFrame.DrawPanel.getWidth() / 2 - 10), 10, TreeMainFrame.root);
-
+            Drawing.gr2d.clearRect(0, 0, 440, 450);
+            Drawing.drawNode(Math.abs(TreeMainFrame.drawPanel.getWidth() / 2 - 10), 10, TreeMainFrame.root);
             getMainFrame();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ошибка ввода данных.Попробуйте снова");
