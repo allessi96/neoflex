@@ -4,17 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class TreeMainFrame extends javax.swing.JFrame {
 
-    public static ArrayList<Node> nodes = new ArrayList<>();
     Graphics g;
     Graphics2D gr2d;
-    Node root;
-    Node selectedNode;
+    static Node root;
+    static Node selectedNode;
 
     public TreeMainFrame() {
         initComponents();
@@ -136,20 +134,18 @@ public class TreeMainFrame extends javax.swing.JFrame {
 
         if ((selectedNode.getLeft() == null) && (selectedNode.getRight() == null)) {
 
-            nodes.remove(selectedNode);
-            Node parent = selectedNode.getParent();
-            if (parent == null) {
-                nodes.clear();
+            if (selectedNode.getParent() == null) {
+                root = null;
                 gr2d.clearRect(0, 0, 440, 450);
             } else {
-                if (parent.getLeft() != null && parent.getLeft().equals(selectedNode)) {
+                if (selectedNode.getParent().getLeft() != null && selectedNode.getParent().getLeft().equals(selectedNode)) {
                     selectedNode.getParent().setLeft(null);
                 } else {
                     selectedNode.getParent().setRight(null);
                 }
-                selectedNode = parent;
+                selectedNode = selectedNode.getParent();
                 gr2d.clearRect(0, 0, 440, 450);
-                drawNode(Math.abs(DrawPanel.getWidth() / 2 - 10), 10, nodes.get(0));
+                drawNode(Math.abs(DrawPanel.getWidth() / 2 - 10), 10, root);
             }
 
         } else {
@@ -160,7 +156,7 @@ public class TreeMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_removeNodeActionPerformed
 
     private void searchNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchNameActionPerformed
-        if (!nodes.isEmpty()) {
+        if (root != null) {
             SearchNode sn = new SearchNode();
             sn.setMainFrame(TreeMainFrame.this);
             sn.nameText.setEnabled(true);
@@ -170,7 +166,7 @@ public class TreeMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_searchNameActionPerformed
 
     private void searchValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchValueActionPerformed
-        if (!nodes.isEmpty()) {
+        if (root != null) {
             SearchNode sn = new SearchNode();
             sn.setMainFrame(TreeMainFrame.this);
             sn.valText.setEnabled(true);
@@ -187,47 +183,52 @@ public class TreeMainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         System.out.println(this.isFocusable());
-        if (!nodes.isEmpty()) {
+        if (root != null) {
             if (KeyEvent.getKeyText(evt.getKeyCode()).equals("Up") && (selectedNode.getParent() != null)) {
-                System.out.println("up");
                 selectedNode = selectedNode.getParent();
             } else if (KeyEvent.getKeyText(evt.getKeyCode()).equals("Left") && (selectedNode.getLeft() != null)) {
-                System.out.println("left");
                 selectedNode = selectedNode.getLeft();
             } else if (KeyEvent.getKeyText(evt.getKeyCode()).equals("Right") && (selectedNode.getRight() != null)) {
-                System.out.println("rig");
                 selectedNode = selectedNode.getRight();
             }
         }
 
-        System.out.println("SN=" + selectedNode.name);
-
         gr2d.clearRect(0, 0, 440, 450);
-        drawNode(Math.abs(DrawPanel.getWidth() / 2 - 10), 10, nodes.get(0));
+        drawNode(Math.abs(DrawPanel.getWidth() / 2 - 10), 10, root);
 
     }//GEN-LAST:event_formKeyReleased
 
     private void allValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allValueActionPerformed
-        
+
+        Node parent = selectedNode.getParent();
         Node.sOutValue(selectedNode);
-        JOptionPane.showMessageDialog(null, Node.values);
+        if (parent == null) {
+            root = selectedNode;
+        } else {
+            selectedNode.setParent(parent);
+        }
+
         this.requestFocus();
-        
+
+        gr2d.clearRect(0, 0, 440, 450);
+        drawNode(Math.abs(DrawPanel.getWidth() / 2 - 10), 10, root);
+
     }//GEN-LAST:event_allValueActionPerformed
 
     public void drawNode(int x, int y, Node n) {
 
         Node l = n.getLeft();
         if (l != null) {
-            drawNode(x - 50, y + 30, n.getLeft());
-            gr2d.drawLine(x + 10, y + 20, x - 40, y + 30);
+
+            drawNode((int) (x - 50 - 10), y + 60, n.getLeft());
+            gr2d.drawLine(x + 10, y + 20, x - 50, y + 60);
 
         }
 
         Node r = n.getRight();
         if (r != null) {
-            drawNode(x + 50, y + 30, n.getRight());
-            gr2d.drawLine(x + 10, y + 20, x + 60, y + 30);
+            drawNode(x + 50, y + 60, n.getRight());
+            gr2d.drawLine(x + 10, y + 20, x + 50 + 10, y + 60);
         }
 
         if (n.equals(selectedNode)) {
