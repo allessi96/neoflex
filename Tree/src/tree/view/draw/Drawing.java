@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tree;
+package tree.view.draw;
 
+import tree.model.Node;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import static tree.TreeMainFrame.selectedNode;
+import tree.view.TreeMainFrame;
+import static tree.view.TreeMainFrame.selectedNode;
 
 /**
  *
@@ -15,7 +17,7 @@ import static tree.TreeMainFrame.selectedNode;
  */
 public class Drawing {
 
-    static Graphics2D gr2d = (Graphics2D) TreeMainFrame.drawPanel.getGraphics();
+    public static Graphics2D gr2d = (Graphics2D) TreeMainFrame.drawPanel.getGraphics();
 
     public static void drawNode(int x, int y, Node n, int dX) {
 

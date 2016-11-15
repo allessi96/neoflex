@@ -1,12 +1,17 @@
-package tree;
+package tree.controller;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
+import tree.view.draw.Drawing;
+import tree.view.draw.GraphicsConstants;
+import tree.model.Node;
+import tree.view.TreeMainFrame;
 
 public class ControlsNode {
 
-    static ArrayList<Node> nodes;
-    public static String valuesStr = "";
+    static ArrayList<Node> nodes; //лист для балансировки
+    public static String valuesStr = ""; //строка значений при выводе 
 
     public static void allValue(Node n) {
 
@@ -16,13 +21,11 @@ public class ControlsNode {
             outValue(n);
             TreeMainFrame.root = TreeMainFrame.selectedNode;
         } else {
+            outValue(n);
+            TreeMainFrame.selectedNode.setParent(parent);
             if (n.equals(parent.getLeft())) {
-                outValue(n);
-                TreeMainFrame.selectedNode.setParent(parent);
                 TreeMainFrame.selectedNode.getParent().setLeft(TreeMainFrame.selectedNode);
             } else {
-                outValue(n);
-                TreeMainFrame.selectedNode.setParent(parent);
                 TreeMainFrame.selectedNode.getParent().setRight(TreeMainFrame.selectedNode);
             }
         }
@@ -31,20 +34,15 @@ public class ControlsNode {
         rename(TreeMainFrame.root);
     }
 
-    public static void addLeft(Node n, int value) {
+    public static void add(Node n, int value, boolean flag) {
         if (TreeMainFrame.root != null) {
-            n.setLeft(new Node(n.getName() + "0", value, n));
-            TreeMainFrame.selectedNode = n.getLeft();
-        } else {
-            TreeMainFrame.root = new Node("start", value, null);
-            TreeMainFrame.selectedNode = TreeMainFrame.root;
-        }
-    }
-
-    public static void addRight(Node n, int value) {
-        if (TreeMainFrame.root != null) {
-            n.setRight(new Node(n.getName() + "1", value, n));
-            TreeMainFrame.selectedNode = n.getRight();
+            if (flag) {
+                n.setLeft(new Node(n.getName() + "0", value, n));
+                TreeMainFrame.selectedNode = n.getLeft();
+            } else {
+                n.setRight(new Node(n.getName() + "1", value, n));
+                TreeMainFrame.selectedNode = n.getRight();
+            }
         } else {
             TreeMainFrame.root = new Node("start", value, null);
             TreeMainFrame.selectedNode = TreeMainFrame.root;
@@ -63,8 +61,8 @@ public class ControlsNode {
                 n.getParent().setRight(null);
             }
             TreeMainFrame.selectedNode = n.getParent();
-            Drawing.gr2d.clearRect(0, 0, 440, 450);
-            Drawing.drawNode(Math.abs(220 - 10), 10, TreeMainFrame.root, 110);
+            Drawing.gr2d.clearRect(0, 0, GraphicsConstants.wight, GraphicsConstants.height);
+            Drawing.drawNode(Math.abs(GraphicsConstants.wight/2 - 10), 10, TreeMainFrame.root, 110);
         }
     }
 

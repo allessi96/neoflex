@@ -1,13 +1,17 @@
-package tree;
+package tree.view;
 
+import tree.view.draw.Drawing;
+import tree.view.draw.GraphicsConstants;
+import tree.model.Node;
+import tree.controller.ControlsNode;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 public class TreeMainFrame extends javax.swing.JFrame {
 
-    static Node root;
-    static Node selectedNode;
+    public static Node root;
+    public static Node selectedNode;
 
     public TreeMainFrame() {
         initComponents();
@@ -148,18 +152,14 @@ public class TreeMainFrame extends javax.swing.JFrame {
 
     private void searchNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchNameActionPerformed
         if (root != null) {
-            SearchNode sn = new SearchNode();
-            sn.setMainFrame(TreeMainFrame.this);
-            sn.nameText.setEnabled(true);
+            new SearchNode().setMainFrame(TreeMainFrame.this, true);
             setEnabled(false);
         }
     }//GEN-LAST:event_searchNameActionPerformed
 
     private void searchValueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchValueActionPerformed
         if (root != null) {
-            SearchNode sn = new SearchNode();
-            sn.setMainFrame(TreeMainFrame.this);
-            sn.valText.setEnabled(true);
+            new SearchNode().setMainFrame(TreeMainFrame.this, false);
             setEnabled(false);
         }
     }//GEN-LAST:event_searchValueActionPerformed
@@ -181,8 +181,8 @@ public class TreeMainFrame extends javax.swing.JFrame {
             }
         }
 
-        Drawing.gr2d.clearRect(0, 0, 440, 450);
-        Drawing.drawNode(Math.abs(220 - 10), 10, root, 110);
+        Drawing.gr2d.clearRect(0, 0, GraphicsConstants.wight, GraphicsConstants.height);
+        Drawing.drawNode(Math.abs(GraphicsConstants.wight/2 - 10), 10, root, 110);
 
     }//GEN-LAST:event_formKeyReleased
 
@@ -190,14 +190,14 @@ public class TreeMainFrame extends javax.swing.JFrame {
         ControlsNode.allValue(selectedNode);
         JOptionPane.showMessageDialog(null, ControlsNode.valuesStr);
 
-        Drawing.gr2d.clearRect(0, 0, 440, 450);
-        Drawing.drawNode(Math.abs(220 - 10), 10, root, 110);
+        Drawing.gr2d.clearRect(0, 0, GraphicsConstants.wight, GraphicsConstants.height);
+        Drawing.drawNode(Math.abs(GraphicsConstants.wight/2 - 10), 10, root, 110);
 
     }//GEN-LAST:event_allValueActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         if (root != null) {
-            Drawing.drawNode(Math.abs(220 - 10), 10, root, 110);
+            Drawing.drawNode(Math.abs(GraphicsConstants.wight/2 - 10), 10, root, 110);
         }
         requestFocus(true);
     }//GEN-LAST:event_formWindowActivated

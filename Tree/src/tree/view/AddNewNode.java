@@ -1,6 +1,9 @@
-package tree;
+package tree.view;
 
+import tree.view.draw.GraphicsConstants;
+import tree.controller.ControlsNode;
 import javax.swing.JOptionPane;
+import tree.view.draw.Drawing;
 
 public class AddNewNode extends javax.swing.JFrame {
 
@@ -100,11 +103,8 @@ public class AddNewNode extends javax.swing.JFrame {
 
     private void leftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftActionPerformed
         try {
-            ControlsNode.addLeft(TreeMainFrame.selectedNode, Integer.parseInt(value.getText()));
-            setVisible(false);
-            Drawing.gr2d.clearRect(0, 0, 440, 450);
-            Drawing.drawNode(Math.abs(220 - 10), 10, TreeMainFrame.root, 110);
-            getMainFrame();
+            ControlsNode.add(TreeMainFrame.selectedNode, Integer.parseInt(value.getText()), true);
+            after();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ошибка ввода данных.Попробуйте снова");
         }
@@ -117,17 +117,14 @@ public class AddNewNode extends javax.swing.JFrame {
 
     private void rightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightActionPerformed
         try {
-            ControlsNode.addRight(TreeMainFrame.selectedNode, Integer.parseInt(value.getText()));
-            setVisible(false);
-            Drawing.gr2d.clearRect(0, 0, 440, 450);
-            Drawing.drawNode(Math.abs(220 - 10), 10, TreeMainFrame.root, 110);
-            getMainFrame();
+            ControlsNode.add(TreeMainFrame.selectedNode, Integer.parseInt(value.getText()),false);
+            after();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ошибка ввода данных.Попробуйте снова");
         }
     }//GEN-LAST:event_rightActionPerformed
 
-    public TreeMainFrame getMainFrame() {
+    private TreeMainFrame getMainFrame() {
         mainFrame.setEnabled(true);
         return mainFrame;
     }
@@ -136,7 +133,14 @@ public class AddNewNode extends javax.swing.JFrame {
         this.mainFrame = MainFrame;
         this.setVisible(true);
     }
-
+    
+    private void after(){
+        setVisible(false);
+            Drawing.gr2d.clearRect(0, 0, GraphicsConstants.wight, GraphicsConstants.height);
+            Drawing.drawNode(Math.abs(GraphicsConstants.wight/2 - 10), 10, TreeMainFrame.root, 110);
+            getMainFrame();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addLabel;
     private javax.swing.JButton cancel;

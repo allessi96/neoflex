@@ -1,5 +1,9 @@
-package tree;
+package tree.view;
 
+import tree.view.draw.Drawing;
+import tree.view.draw.GraphicsConstants;
+import tree.model.Node;
+import tree.controller.ControlsNode;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
@@ -113,8 +117,8 @@ public class SearchNode extends javax.swing.JFrame {
                 nameText.setEnabled(false);
                 valText.setEnabled(false);
 
-                Drawing.gr2d.clearRect(0, 0, 440, 450);
-                Drawing.drawNode(Math.abs(220 - 10), 10, TreeMainFrame.root, 110);
+                Drawing.gr2d.clearRect(0, 0, GraphicsConstants.wight, GraphicsConstants.height);
+                Drawing.drawNode(Math.abs(GraphicsConstants.wight/2 - 10), 10, TreeMainFrame.root, 110);
 
                 getMainFrame();
             }
@@ -129,12 +133,18 @@ public class SearchNode extends javax.swing.JFrame {
         return mainFrame;
     }
 
-    public void setMainFrame(TreeMainFrame MainFrame) {
+    public void setMainFrame(TreeMainFrame MainFrame, boolean flag) {
         this.mainFrame = MainFrame;
+        if(flag){
+            nameText.setEnabled(true);
+        }
+        else{
+            valText.setEnabled(true);
+        }
         this.setVisible(true);
     }
 
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel nameLabel;
