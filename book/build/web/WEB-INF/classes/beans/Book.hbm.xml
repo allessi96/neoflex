@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21.12.2016 19:55:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="beans.Book" table="BOOK" schema="SYSTEM" optimistic-lock="version">
+        <id name="id" type="big_decimal">
+            <column name="ID" precision="38" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="author" class="beans.Author" fetch="select">
+            <column name="ID_AUTHOR" precision="38" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="publlisher" class="beans.Publlisher" fetch="select">
+            <column name="ID_PUBLISHER" precision="38" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="NAME" length="100" not-null="true" />
+        </property>
+        <property name="year" type="big_decimal">
+            <column name="YEAR" precision="38" scale="0" not-null="true" />
+        </property>
+        <set name="genreBooks" table="GENRE_BOOK" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_BOOK" precision="38" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="beans.GenreBook" />
+        </set>
+    </class>
+</hibernate-mapping>

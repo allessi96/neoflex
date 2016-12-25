@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21.12.2016 19:55:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="beans.Customer" table="CUSTOMER" schema="SYSTEM" optimistic-lock="version">
+        <id name="login" type="string">
+            <column name="LOGIN" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="lastname" type="string">
+            <column name="LASTNAME" length="20" not-null="true" />
+        </property>
+        <property name="firstname" type="string">
+            <column name="FIRSTNAME" length="20" not-null="true" />
+        </property>
+        <property name="partonymic" type="string">
+            <column name="PARTONYMIC" length="20" />
+        </property>
+        <property name="password" type="string">
+            <column name="PASSWORD" length="20" />
+        </property>
+        <set name="finisheds" table="FINISHED" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ID_CUSTOMER" length="20" not-null="true" />
+            </key>
+            <one-to-many class="beans.Finished" />
+        </set>
+    </class>
+</hibernate-mapping>

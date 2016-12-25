@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21.12.2016 19:55:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="beans.GenreBook" table="GENRE_BOOK" schema="SYSTEM" optimistic-lock="version">
+        <composite-id name="id" class="beans.GenreBookId">
+            <key-property name="idGenre" type="big_decimal">
+                <column name="ID_GENRE" precision="38" scale="0" />
+            </key-property>
+            <key-property name="idBook" type="big_decimal">
+                <column name="ID_BOOK" precision="38" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="book" class="beans.Book" update="false" insert="false" fetch="select">
+            <column name="ID_BOOK" precision="38" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="genre" class="beans.Genre" update="false" insert="false" fetch="select">
+            <column name="ID_GENRE" precision="38" scale="0" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

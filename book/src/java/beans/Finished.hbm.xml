@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21.12.2016 19:55:58 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="beans.Finished" table="FINISHED" schema="SYSTEM" optimistic-lock="version">
+        <id name="id" type="big_decimal">
+            <column name="ID" precision="38" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="customer" class="beans.Customer" fetch="select">
+            <column name="ID_CUSTOMER" length="20" not-null="true" />
+        </many-to-one>
+        <property name="adress" type="string">
+            <column name="ADRESS" length="200" not-null="true" />
+        </property>
+        <property name="send" type="serializable">
+            <column name="SEND" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
